@@ -1,0 +1,16 @@
+{
+  "name": "com_nico_develop_click_combat",
+  "version": "1.0.0",
+  "description": "A new Flutter project.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "start": "kill-port --port 9099 && kill-port --port 8080 && firebase emulators:start --import=./data/local/ --export-on-exit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
