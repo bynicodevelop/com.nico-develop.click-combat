@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:com_nico_develop_click_combat/models/profile_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfileRespository {
@@ -10,7 +11,21 @@ class ProfileRespository {
     required this.firestore,
   });
 
+  Stream<ProfileModel> get profile {
+    return firestore
+        .collection("users")
+        .doc(authentication.currentUser!.uid)
+        .snapshots()
+        .map(
+          (snapshot) => ProfileModel.fromSnapshot(
+            snapshot.data() ?? {},
+          ),
+        );
+  }
+
   Future<void> updateDisplayName(String displayName) async {
+    await authentication.currentUser!.updateDisplayName(displayName);
+
     await firestore
         .collection("users")
         .doc(authentication.currentUser!.uid)

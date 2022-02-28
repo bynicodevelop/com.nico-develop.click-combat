@@ -36,7 +36,7 @@ class RankingScreen extends StatelessWidget {
                     return Card(
                       child: ListTile(
                         title: Text(
-                          '${rankings[index]['displayName']}'.substring(0, 4),
+                          '${rankings[index]['displayName']}',
                         ),
                         trailing: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

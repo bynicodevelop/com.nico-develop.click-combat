@@ -15,7 +15,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     required this.authenticationRepository,
   }) : super(UserInitialState()) {
     authenticationRepository.user.listen((UserModel userModel) {
-      print("UserModel: ${userModel.toJson()}");
       add(OnUserLoadedEvent(
         userModel: userModel,
       ));

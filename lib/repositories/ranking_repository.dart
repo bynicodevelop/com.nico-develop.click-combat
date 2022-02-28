@@ -34,4 +34,18 @@ class RankingRepository {
           .toList();
     });
   }
+
+  Stream<Map<String, dynamic>> getUserRanking() {
+    return firestore
+        .collection("users")
+        .doc(authentication.currentUser!.uid)
+        .snapshots()
+        .asyncMap((snapshot) async {
+      Map<String, dynamic>? data = snapshot.data();
+
+      return {
+        ...data ?? {},
+      };
+    });
+  }
 }

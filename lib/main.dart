@@ -61,7 +61,6 @@ class App extends StatelessWidget {
         theme: CustomThemeData.defaultTheme,
         debugShowCheckedModeBanner: false,
         home: const HomeScreen(),
-        // home: const UsernameScreen(),
       ),
     );
   }

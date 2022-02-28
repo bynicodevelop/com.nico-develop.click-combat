@@ -55,25 +55,25 @@ class AuthenticationRepository {
     String email,
     String password,
   ) async {
-    // try {
-    await authentication.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    // } on FirebaseAuthException catch (e) {
-    //   String code = AuthenticationException.emailAlreadyExists;
+    try {
+      await authentication.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      String code = AuthenticationException.emailAlreadyExists;
 
-    //   switch (e.code) {
-    //     case "invalid-email":
-    //       code = AuthenticationException.invalidEmail;
-    //       break;
-    //     case "weak-password":
-    //       code = AuthenticationException.invalidPassword;
-    //       break;
-    //   }
+      switch (e.code) {
+        case "invalid-email":
+          code = AuthenticationException.invalidEmail;
+          break;
+        case "weak-password":
+          code = AuthenticationException.invalidPassword;
+          break;
+      }
 
-    //   throw AuthenticationException(code);
-    // }
+      throw AuthenticationException(code);
+    }
   }
 
   Future<void> forgottenPassword(String email) async {

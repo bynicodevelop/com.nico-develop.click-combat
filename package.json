@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "start": "kill-port --port 9099 && kill-port --port 8080 && firebase emulators:start --import=./data/local/ --export-on-exit"
+    "start": "kill-port --port 9099 && kill-port --port 8080 kill-port --port 8085 && firebase emulators:start --import=./data/local/ --export-on-exit"
   },
   "keywords": [],
   "author": "",

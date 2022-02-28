@@ -11,8 +11,8 @@ class TextInput extends StatefulWidget {
   const TextInput({
     Key? key,
     required this.controller,
-    this.label = "Email",
-    this.errorText = "Please enter a valid email",
+    this.label = "",
+    this.errorText = "",
     this.required = false,
   }) : super(key: key);
 
