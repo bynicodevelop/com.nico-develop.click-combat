@@ -50,30 +50,36 @@ class ClickRepository {
   Future<void> addClick(
     int clicks,
   ) async {
-    QuerySnapshot querySnapshot = await firestore
-        .collection('clicks')
-        .where(
-          'userRef',
-          isEqualTo: firestore.doc('users/${authentication.currentUser!.uid}'),
-        )
-        .where(
-          'date',
-          isEqualTo: _getDayDateTime(),
-        )
-        .get();
+    await firestore
+        .collection("users")
+        .doc(authentication.currentUser!.uid)
+        .update({
+      'clicks': FieldValue.increment(clicks),
+    });
+    // QuerySnapshot querySnapshot = await firestore
+    //     .collection('clicks')
+    //     .where(
+    //       'userRef',
+    //       isEqualTo: firestore.doc('users/${authentication.currentUser!.uid}'),
+    //     )
+    //     .where(
+    //       'date',
+    //       isEqualTo: _getDayDateTime(),
+    //     )
+    //     .get();
 
-    if (querySnapshot.size == 0) {
-      await firestore.collection('clicks').add({
-        'userRef': firestore.doc('users/${authentication.currentUser!.uid}'),
-        'clicks': clicks,
-        'date': _getDayDateTime(),
-      });
-    } else {
-      final doc = querySnapshot.docs.first;
+    // if (querySnapshot.size == 0) {
+    //   await firestore.collection('clicks').add({
+    //     'userRef': firestore.doc('users/${authentication.currentUser!.uid}'),
+    //     'clicks': clicks,
+    //     'date': _getDayDateTime(),
+    //   });
+    // } else {
+    //   final doc = querySnapshot.docs.first;
 
-      await doc.reference.update({
-        'clicks': FieldValue.increment(clicks),
-      });
-    }
+    //   await doc.reference.update({
+    //     'clicks': FieldValue.increment(clicks),
+    //   });
+    // }
   }
 }

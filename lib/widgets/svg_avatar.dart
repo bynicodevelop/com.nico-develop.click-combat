@@ -5,11 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SvgAvatar extends StatelessWidget {
   final DrawableRoot svgRoot;
   final double size;
+  final double paddingDelta;
 
   const SvgAvatar({
     Key? key,
     required this.svgRoot,
     this.size = 180,
+    this.paddingDelta = 0,
   }) : super(key: key);
 
   @override
@@ -17,7 +19,8 @@ class SvgAvatar extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: 10,
-        horizontal: (MediaQuery.of(context).size.width - size) / 2,
+        horizontal:
+            (MediaQuery.of(context).size.width - size - paddingDelta) / 2,
       ),
       height: size + 20,
       width: double.infinity,

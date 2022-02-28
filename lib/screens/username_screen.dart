@@ -15,8 +15,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
     return Scaffold(
       body: AuthenticationLayout(
         heading: Text(
-          "Commençons par choisir un pseudo de guerrier",
+          "Commencez par choisir un nom de guerrier",
           style: Theme.of(context).textTheme.headline1,
+          textAlign: TextAlign.center,
         ),
         form: const UsernameFormComponent(),
       ),

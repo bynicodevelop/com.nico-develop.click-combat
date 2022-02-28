@@ -60,16 +60,6 @@ class RankingScreen extends StatelessWidget {
                 );
               },
             ),
-            const Card(
-              child: ListTile(
-                title: Text('Vous êtes le ici'),
-                subtitle: Text("Votre position est 40 123"),
-                trailing: Text('Score: 1,2K'),
-                leading: CircleAvatar(
-                  child: Text('40K'),
-                ),
-              ),
-            )
           ],
         ),
       ),

@@ -46,6 +46,11 @@ class CustomThemeData {
           fontSize: kDefaultFontSize * 1.9,
           fontWeight: FontWeight.w400,
         ),
+        headline4: const TextStyle(
+          color: Colors.black,
+          fontSize: kDefaultFontSize * 1.2,
+          fontWeight: FontWeight.w400,
+        ),
         headline6: const TextStyle(
           color: Colors.black,
           fontSize: kDefaultFontSize * 1.5,

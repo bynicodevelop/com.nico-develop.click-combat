@@ -61,9 +61,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                    // SvgAvatar(
-                    //   id: profileModel.displayName,
-                    // ),
                   ],
                 ),
                 Padding(
@@ -105,6 +102,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                             setState(() => _editingMode = !_editingMode);
                           },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                    top: 40.0,
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          "Nombre de clique à son actif :",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                        trailing: Text(
+                          "${profileModel.clicks}",
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       )
                     ],

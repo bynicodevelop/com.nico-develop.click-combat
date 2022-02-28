@@ -122,7 +122,7 @@ class Provider extends StatelessWidget {
           create: (context) => ProfileAvatarBloc()
             ..add(
               const OnUpdateProfileAvatar(
-                avatar: "click-combat-avatar",
+                avatar: "click-combat",
               ),
             ),
         ),

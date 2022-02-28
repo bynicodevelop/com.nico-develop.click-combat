@@ -7,7 +7,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multiavatar/multiavatar.dart';
 
 class ProfileAvatarComponent extends StatelessWidget {
-  const ProfileAvatarComponent({Key? key}) : super(key: key);
+  final double paddingDelta;
+  const ProfileAvatarComponent({
+    Key? key,
+    this.paddingDelta = 0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,7 @@ class ProfileAvatarComponent extends StatelessWidget {
 
         return SvgAvatar(
           svgRoot: (state).avatar!,
+          paddingDelta: paddingDelta,
         );
       },
     );
