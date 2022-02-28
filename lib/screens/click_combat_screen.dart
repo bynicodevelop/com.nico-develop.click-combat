@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:com_nico_develop_click_combat/components/authentication/login_form/bloc/login_form_bloc.dart';
 import 'package:com_nico_develop_click_combat/components/authentication/logout_button/bloc/logout_bloc.dart';
@@ -131,6 +132,8 @@ class _ClickCombatScreenState extends State<ClickCombatScreen> {
             },
             child: Scaffold(
               body: InkWell(
+                splashColor:
+                    Colors.primaries[Random().nextInt(Colors.primaries.length)],
                 onTap: _isPlaying
                     ? () => _onClick(!widget.userModel.isEmpty)
                     : null,
