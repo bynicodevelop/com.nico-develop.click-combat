@@ -13,22 +13,22 @@ class CustomThemeData {
         color: kDefaultBackgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: Colors.black,
+          color: kDefautColor,
         ),
         titleTextStyle: TextStyle(
-          color: Colors.black,
+          color: kDefautColor,
           fontSize: 20,
           fontWeight: FontWeight.w400,
           letterSpacing: kDefaultPadding / 15,
         ),
       ),
-      textTheme: TextTheme(
-        bodyText1: const TextStyle(
-          color: Colors.black,
+      textTheme: const TextTheme(
+        bodyText1: TextStyle(
+          color: kDefautColor,
           fontSize: kDefaultFontSize,
           fontWeight: FontWeight.w400,
         ),
-        bodyText2: const TextStyle(
+        bodyText2: TextStyle(
           color: Color(0xFFA3A3A3),
           fontStyle: FontStyle.italic,
           fontSize: kDefaultFontSize / 1.1,
@@ -36,28 +36,28 @@ class CustomThemeData {
           letterSpacing: .7,
         ),
         caption: TextStyle(
-          color: Colors.grey[600]!,
-          fontSize: kDefaultFontSize / 1.7,
-          fontWeight: FontWeight.w300,
-          fontStyle: FontStyle.italic,
+          color: kDefautColor,
+          fontSize: kDefaultFontSize / 1.2,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 1.2,
         ),
-        headline1: const TextStyle(
-          color: Colors.black,
+        headline1: TextStyle(
+          color: kDefautColor,
           fontSize: kDefaultFontSize * 1.9,
           fontWeight: FontWeight.w400,
         ),
-        headline4: const TextStyle(
-          color: Colors.black,
+        headline4: TextStyle(
+          color: kDefautColor,
           fontSize: kDefaultFontSize * 1.2,
           fontWeight: FontWeight.w400,
         ),
-        headline6: const TextStyle(
-          color: Colors.black,
+        headline6: TextStyle(
+          color: kDefautColor,
           fontSize: kDefaultFontSize * 1.5,
           fontWeight: FontWeight.w400,
         ),
-        subtitle1: const TextStyle(
-          color: Colors.black,
+        subtitle1: TextStyle(
+          color: kDefautColor,
           fontSize: kDefaultFontSize,
           fontWeight: FontWeight.w400,
         ),

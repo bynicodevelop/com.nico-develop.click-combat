@@ -5,6 +5,7 @@ import 'package:com_nico_develop_click_combat/configs/custom_theme_data.dart';
 import 'package:com_nico_develop_click_combat/configs/provider.dart';
 import 'package:com_nico_develop_click_combat/firebase_options.dart';
 import 'package:com_nico_develop_click_combat/screens/home_screen.dart';
+import 'package:com_nico_develop_click_combat/screens/profile_screen.dart';
 import 'package:com_nico_develop_click_combat/screens/username_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

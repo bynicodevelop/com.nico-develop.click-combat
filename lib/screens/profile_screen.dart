@@ -66,9 +66,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Stack(
                     alignment: AlignmentDirectional.topCenter,
                     children: <Widget>[
-                      const ProfileAvatarComponent(),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          top: 20.0,
+                        ),
+                        child: ProfileAvatarComponent(),
+                      ),
                       Positioned(
-                        right: 20.0,
+                        right: 15.0,
                         child: BlocListener<LogoutBloc, LogoutState>(
                           listener: (context, state) {
                             if (state is LogoutSuccessState) {
@@ -89,11 +94,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                       ),
+                      Positioned(
+                        left: 15.0,
+                        child: BlocListener<LogoutBloc, LogoutState>(
+                          listener: (context, state) {
+                            if (state is LogoutSuccessState) {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeScreen(),
+                                ),
+                                (route) => false,
+                              );
+                            }
+                          },
+                          child: TextButton(
+                            onPressed: () {
+                              if (_editingMode) {
+                                // save
+                                context.read<UsernameBloc>().add(
+                                      OnSetUsernameEvent(
+                                        displayName: _usernameController.text,
+                                      ),
+                                    );
+                              } else {
+                                setState(() => _editingMode = !_editingMode);
+                              }
+                            },
+                            child: Text(
+                              !_editingMode
+                                  ? "Modifier".toUpperCase()
+                                  : "Enregistrer".toUpperCase(),
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
+                    padding: const EdgeInsets.only(
+                      bottom: 10.0,
                     ),
                     child: Column(
                       children: [
@@ -113,48 +153,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             label: "Votre nom d'utilisateur",
                             errorText: "Merci de saisir un nom d'utilisateur",
                           ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 45.0,
-                          child: MainButton(
-                            label: "Modifier",
-                            onPressed: () {
-                              if (_editingMode) {
-                                // save
-                                context.read<UsernameBloc>().add(
-                                      OnSetUsernameEvent(
-                                        displayName: _usernameController.text,
-                                      ),
-                                    );
-                              } else {
-                                setState(() => _editingMode = !_editingMode);
-                              }
-                            },
-                          ),
-                        )
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 20.0,
-                      top: 40.0,
-                    ),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            "Nombre de clique à son actif :",
-                            style: Theme.of(context).textTheme.headline4,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 6.0,
+                            ),
+                            child: Text(
+                              "${profileModel.clicks}",
+                              style: Theme.of(context).textTheme.headline1,
+                            ),
                           ),
-                          trailing: Text(
-                            "${profileModel.clicks}",
-                            style: Theme.of(context).textTheme.headline4,
+                          Text(
+                            "Clicks".toUpperCase(),
+                            style: Theme.of(context).textTheme.caption,
                           ),
-                        )
-                      ],
-                    ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 6.0,
+                            ),
+                            child: Text(
+                              "${profileModel.victories}",
+                              style: Theme.of(context).textTheme.headline1,
+                            ),
+                          ),
+                          Text(
+                            "Victoires".toUpperCase(),
+                            style: Theme.of(context).textTheme.caption,
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ],
               ),
