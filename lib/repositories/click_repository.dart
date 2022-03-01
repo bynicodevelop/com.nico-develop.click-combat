@@ -43,7 +43,7 @@ class ClickRepository {
         return doc.data();
       }).toList();
 
-      return clicks.isNotEmpty ? clicks.first : {};
+      return clicks.isNotEmpty ? clicks.first : {"clicks": 0};
     });
   }
 

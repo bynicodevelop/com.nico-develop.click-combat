@@ -5,12 +5,17 @@ const { firestore } = require("firebase-admin");
 admin.initializeApp();
 
 exports.onUserCreated = functions.auth.user().onCreate((user) => {
-  const { uid, email } = user;
+  const { uid, email, displayName } = user;
 
-  return admin.firestore().collection("users").doc(uid).set({
-    email,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
-  });
+  return admin
+    .firestore()
+    .collection("users")
+    .doc(uid)
+    .set({
+      email,
+      displayName: displayName || "",
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
 });
 
 exports.onUserClicked = functions.firestore
@@ -35,7 +40,16 @@ exports.onUserClicked = functions.firestore
       .limit(1)
       .get();
 
-    if (clickDocuments.docs.length == 1) {
+    if (clickDocuments.docs.length == 0) {
+      await admin
+        .firestore()
+        .collection("clicks")
+        .add({
+          clicks: afterClick,
+          userRef: admin.firestore().doc(`users/${userId}`),
+          date: admin.firestore.Timestamp.fromDate(d),
+        });
+    } else {
       const clickDocument = clickDocuments.docs[0];
 
       await clickDocument.ref.update({
@@ -75,3 +89,39 @@ exports.scheduledCalculatePositions = functions.pubsub
 
     return null;
   });
+
+if (process.env.FUNCTIONS_EMULATOR) {
+  exports.generateUsers = functions.https.onRequest(async (req, res) => {
+    const users = [
+      {
+        email: "jeff1@domain.tld",
+        password: "123456",
+        displayName: "Jeff 1",
+      },
+      {
+        email: "jeff2@domain.tld",
+        password: "123456",
+        displayName: "Jeff 2",
+      },
+      {
+        email: "jeff3@domain.tld",
+        password: "123456",
+        displayName: "Jeff 3",
+      },
+      {
+        email: "jeff4@domain.tld",
+        password: "123456",
+        displayName: "Jeff 4",
+      },
+    ];
+
+    for (let i = 0; i < users.length; i++) {
+      const { email, password, displayName } = users[i];
+      console.log({ email, password, displayName });
+
+      await admin.auth().createUser({ email, password, displayName });
+    }
+
+    res.send("Done");
+  });
+}

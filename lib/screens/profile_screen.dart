@@ -25,125 +25,143 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (context, state) {
-        if (state is! ProfileLoadedState) {
-          return const Center(
-            child: CircularProgressIndicator(),
+    return BlocListener<UsernameBloc, UsernameState>(
+      listener: (context, state) {
+        if (state is UsernameAlreadyExistsState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                  "Ce nom de guerrier existe déjà... Vous ne voudriez pas vous trouver dans l'ombre d'un autre guerrier."),
+            ),
           );
+
+          return;
         }
 
-        ProfileModel profileModel = state.profileModel;
-        _usernameController.text = profileModel.displayName;
-
-        context.read<ProfileAvatarBloc>().add(
-              OnUpdateProfileAvatar(
-                avatar: profileModel.displayName,
-              ),
+        if (state is UsernameLoadedState) {
+          setState(() => _editingMode = !_editingMode);
+        }
+      },
+      child: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          if (state is! ProfileLoadedState) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
+          }
 
-        return Scaffold(
-          body: SafeArea(
-            child: ListView(
-              children: [
-                Stack(
-                  alignment: AlignmentDirectional.topCenter,
-                  children: <Widget>[
-                    const ProfileAvatarComponent(),
-                    Positioned(
-                      right: 20.0,
-                      child: BlocListener<LogoutBloc, LogoutState>(
-                        listener: (context, state) {
-                          if (state is LogoutSuccessState) {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                  builder: (context) => const HomeScreen(),
+          ProfileModel profileModel = state.profileModel;
+          _usernameController.text = profileModel.displayName;
+
+          context.read<ProfileAvatarBloc>().add(
+                OnUpdateProfileAvatar(
+                  avatar: profileModel.displayName,
+                ),
+              );
+
+          return Scaffold(
+            body: SafeArea(
+              child: ListView(
+                children: [
+                  Stack(
+                    alignment: AlignmentDirectional.topCenter,
+                    children: <Widget>[
+                      const ProfileAvatarComponent(),
+                      Positioned(
+                        right: 20.0,
+                        child: BlocListener<LogoutBloc, LogoutState>(
+                          listener: (context, state) {
+                            if (state is LogoutSuccessState) {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomeScreen(),
+                                  ),
+                                  (route) => false);
+                            }
+                          },
+                          child: IconButton(
+                            onPressed: () => context.read<LogoutBloc>().add(
+                                  OnLogoutEvent(),
                                 ),
-                                (route) => false);
-                          }
-                        },
-                        child: IconButton(
-                          onPressed: () => context.read<LogoutBloc>().add(
-                                OnLogoutEvent(),
-                              ),
-                          icon: const Icon(
-                            Icons.logout,
+                            icon: const Icon(
+                              Icons.logout,
+                            ),
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                  ),
-                  child: Column(
-                    children: [
-                      if (!_editingMode)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 18.0,
+                    child: Column(
+                      children: [
+                        if (!_editingMode)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 18.0,
+                            ),
+                            child: Text(
+                              _usernameController.text,
+                              style: Theme.of(context).textTheme.headline1,
+                            ),
                           ),
-                          child: Text(
-                            _usernameController.text,
-                            style: Theme.of(context).textTheme.headline1,
+                        if (_editingMode)
+                          TextInput(
+                            controller: _usernameController,
+                            label: "Votre nom d'utilisateur",
+                            errorText: "Merci de saisir un nom d'utilisateur",
                           ),
-                        ),
-                      if (_editingMode)
-                        TextInput(
-                          controller: _usernameController,
-                          label: "Votre nom d'utilisateur",
-                          errorText: "Merci de saisir un nom d'utilisateur",
-                        ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 45.0,
-                        child: MainButton(
-                          label: "Modifier",
-                          onPressed: () {
-                            if (_editingMode) {
-                              // save
-                              context.read<UsernameBloc>().add(
-                                    OnSetUsernameEvent(
-                                      displayName: _usernameController.text,
-                                    ),
-                                  );
-                            }
-
-                            setState(() => _editingMode = !_editingMode);
-                          },
-                        ),
-                      )
-                    ],
+                        SizedBox(
+                          width: double.infinity,
+                          height: 45.0,
+                          child: MainButton(
+                            label: "Modifier",
+                            onPressed: () {
+                              if (_editingMode) {
+                                // save
+                                context.read<UsernameBloc>().add(
+                                      OnSetUsernameEvent(
+                                        displayName: _usernameController.text,
+                                      ),
+                                    );
+                              } else {
+                                setState(() => _editingMode = !_editingMode);
+                              }
+                            },
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                    top: 40.0,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20.0,
+                      right: 20.0,
+                      top: 40.0,
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            "Nombre de clique à son actif :",
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                          trailing: Text(
+                            "${profileModel.clicks}",
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          "Nombre de clique à son actif :",
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                        trailing: Text(
-                          "${profileModel.clicks}",
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

@@ -16,21 +16,12 @@ class SvgAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal:
-            (MediaQuery.of(context).size.width - size - paddingDelta) / 2,
-      ),
-      height: size + 20,
-      width: double.infinity,
-      child: CustomPaint(
-        painter: PainterHelper(
-          svgRoot,
-          Size(
-            size,
-            size,
-          ),
+    return CustomPaint(
+      painter: PainterHelper(
+        svgRoot,
+        Size(
+          size,
+          size,
         ),
       ),
     );

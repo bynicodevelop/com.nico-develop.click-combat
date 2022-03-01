@@ -8,9 +8,11 @@ import 'package:multiavatar/multiavatar.dart';
 
 class ProfileAvatarComponent extends StatelessWidget {
   final double paddingDelta;
+  final double size;
   const ProfileAvatarComponent({
     Key? key,
     this.paddingDelta = 0,
+    this.size = 180,
   }) : super(key: key);
 
   @override
@@ -23,9 +25,18 @@ class ProfileAvatarComponent extends StatelessWidget {
           );
         }
 
-        return SvgAvatar(
-          svgRoot: (state).avatar!,
-          paddingDelta: paddingDelta,
+        return Container(
+          padding: EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal:
+                (MediaQuery.of(context).size.width - size - paddingDelta) / 2,
+          ),
+          height: size + 20,
+          width: double.infinity,
+          child: SvgAvatar(
+            svgRoot: (state).avatar!,
+            paddingDelta: paddingDelta,
+          ),
         );
       },
     );

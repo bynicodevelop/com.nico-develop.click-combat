@@ -1,5 +1,7 @@
+import 'package:com_nico_develop_click_combat/components/ranking_profile_avatar.dart';
 import 'package:com_nico_develop_click_combat/services/ranking/ranking_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -18,7 +20,8 @@ class RankingScreen extends StatelessWidget {
           right: 10,
           top: 10,
         ),
-        child: Column(
+        child: ListView(
+          shrinkWrap: true,
           children: <Widget>[
             BlocBuilder<RankingBloc, RankingState>(
               bloc: context.read<RankingBloc>()
@@ -51,8 +54,13 @@ class RankingScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        leading: CircleAvatar(
-                          child: Text('$index'),
+                        leading: Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 50,
+                          ),
+                          child: RankingProfileAvatar(
+                            username: rankings[index]['displayName'],
+                          ),
                         ),
                       ),
                     );

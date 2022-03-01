@@ -25,6 +25,8 @@ class ProfileRespository {
   }
 
   Future<void> updateDisplayName(String displayName) async {
+    if (authentication.currentUser!.displayName == displayName) return;
+
     QuerySnapshot querySnapshot = await firestore
         .collection("users")
         .where(

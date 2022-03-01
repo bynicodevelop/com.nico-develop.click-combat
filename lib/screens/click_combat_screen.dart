@@ -9,9 +9,7 @@ import 'package:com_nico_develop_click_combat/components/click_combat/total_clic
 import 'package:com_nico_develop_click_combat/configs/constants.dart';
 import 'package:com_nico_develop_click_combat/models/user_model.dart';
 import 'package:com_nico_develop_click_combat/screens/auth_screen.dart';
-import 'package:com_nico_develop_click_combat/screens/username_screen.dart';
 import 'package:com_nico_develop_click_combat/services/click/click_bloc.dart';
-import 'package:com_nico_develop_click_combat/widgets/buttons/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
