@@ -4,9 +4,9 @@ import 'package:com_nico_develop_click_combat/components/forms/inputs/text_input
 import 'package:com_nico_develop_click_combat/components/profile_avatar/bloc/profile_avatar_bloc.dart';
 import 'package:com_nico_develop_click_combat/components/profile_avatar/profile_avatar_component.dart';
 import 'package:com_nico_develop_click_combat/models/profile_model.dart';
+import 'package:com_nico_develop_click_combat/screens/home_screen.dart';
 import 'package:com_nico_develop_click_combat/services/profile/profile_bloc.dart';
 import 'package:com_nico_develop_click_combat/widgets/buttons/main_button.dart';
-import 'package:com_nico_develop_click_combat/widgets/svg_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,12 +52,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const ProfileAvatarComponent(),
                     Positioned(
                       right: 20.0,
-                      child: IconButton(
-                        onPressed: () => context.read<LogoutBloc>().add(
-                              OnLogoutEvent(),
-                            ),
-                        icon: const Icon(
-                          Icons.logout,
+                      child: BlocListener<LogoutBloc, LogoutState>(
+                        listener: (context, state) {
+                          if (state is LogoutSuccessState) {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeScreen(),
+                                ),
+                                (route) => false);
+                          }
+                        },
+                        child: IconButton(
+                          onPressed: () => context.read<LogoutBloc>().add(
+                                OnLogoutEvent(),
+                              ),
+                          icon: const Icon(
+                            Icons.logout,
+                          ),
                         ),
                       ),
                     ),

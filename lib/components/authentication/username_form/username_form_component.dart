@@ -36,6 +36,17 @@ class _UsernameFormComponentState extends State<UsernameFormComponent> {
   Widget build(BuildContext context) {
     return BlocListener<UsernameBloc, UsernameState>(
       listener: (context, state) {
+        if (state is UsernameAlreadyExistsState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                  "Ce nom de guerrier existe déjà... Vous ne voudriez pas vous trouver dans l'ombre d'un autre guerrier."),
+            ),
+          );
+
+          return;
+        }
+
         if (state is UsernameLoadedState) {
           Navigator.pushAndRemoveUntil(
             context,

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:com_nico_develop_click_combat/exceptions/already_exists_exception.dart';
 import 'package:com_nico_develop_click_combat/repositories/profile_repository.dart';
 import 'package:equatable/equatable.dart';
 
@@ -14,11 +15,15 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
     on<OnSetUsernameEvent>((event, emit) async {
       emit(UsernameLoadingState());
 
-      await profileRepository.updateDisplayName(
-        event.displayName,
-      );
+      try {
+        await profileRepository.updateDisplayName(
+          event.displayName,
+        );
 
-      emit(UsernameLoadedState());
+        emit(UsernameLoadedState());
+      } on AlreadyExistsException {
+        emit(UsernameAlreadyExistsState());
+      }
     });
   }
 }

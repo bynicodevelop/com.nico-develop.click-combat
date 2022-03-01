@@ -11,8 +11,8 @@ class ProfileModel extends Equatable {
 
   static fromSnapshot(Map<String, dynamic> snapshot) {
     return ProfileModel(
-      displayName: snapshot['displayName'],
-      clicks: snapshot['clicks'],
+      displayName: snapshot['displayName'] ?? "",
+      clicks: snapshot['clicks'] ?? 0,
     );
   }
 

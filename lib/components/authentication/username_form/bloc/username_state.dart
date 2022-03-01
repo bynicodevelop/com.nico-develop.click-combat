@@ -13,4 +13,4 @@ class UsernameLoadingState extends UsernameState {}
 
 class UsernameLoadedState extends UsernameState {}
 
-class UsernameErrorState extends UsernameState {}
+class UsernameAlreadyExistsState extends UsernameState {}

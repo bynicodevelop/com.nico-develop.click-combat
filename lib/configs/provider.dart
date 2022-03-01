@@ -113,7 +113,6 @@ class Provider extends StatelessWidget {
           ),
         ),
         BlocProvider<ProfileBloc>(
-          lazy: false,
           create: (context) => ProfileBloc(
             profileRepository: profileRepository,
           ),
