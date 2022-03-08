@@ -8,7 +8,11 @@
     "test": "test"
   },
   "scripts": {
-    "start": "kill-port --port 9099 && kill-port --port 8080 kill-port --port 8085 && firebase emulators:start --import=./data/local/ --export-on-exit"
+    "start": "kill-port --port 9099 && kill-port --port 8080 && kill-port --port 8085 && firebase emulators:start --import=./data/local/ --export-on-exit",
+    "clean": "rm -r functions/node_modules",
+    "deploy": "npm run deploy:firestore && npm run deploy:functions",
+    "deploy:functions": "npm --prefix functions install && firebase deploy --only functions",
+    "deploy:firestore": "firebase deploy --only firestore"
   },
   "keywords": [],
   "author": "",

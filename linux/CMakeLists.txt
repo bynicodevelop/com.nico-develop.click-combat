@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "com_nico_develop_click_combat")
-set(APPLICATION_ID "com.example.com_nico_develop_click_combat")
+set(APPLICATION_ID "com.nico-develop.click-combat")
 
 cmake_policy(SET CMP0063 NEW)
 

@@ -1,4 +1,5 @@
 import 'package:com_nico_develop_click_combat/components/ranking_profile_avatar.dart';
+import 'package:com_nico_develop_click_combat/configs/constants.dart';
 import 'package:com_nico_develop_click_combat/services/ranking/ranking_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -31,6 +32,24 @@ class RankingScreen extends StatelessWidget {
               builder: (context, state) {
                 List<Map<String, dynamic>> rankings =
                     (state as RankingInitialState).rankings;
+
+                if (rankings.isEmpty) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: kDefaultPadding * 3,
+                      ),
+                      child: Text(
+                        "Vous pouvez encore\nfaire votre place !",
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  height: 1.6,
+                                ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                }
 
                 return ListView.builder(
                   shrinkWrap: true,

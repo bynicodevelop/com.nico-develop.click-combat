@@ -10,9 +10,33 @@ class RankingRepository {
     required this.authentication,
   });
 
+  DateTime _getDayDateTime() {
+    final now = DateTime.now().toUtc();
+
+    final lastMidnight = now.subtract(
+      Duration(
+        hours: now.hour,
+        minutes: now.minute,
+        seconds: now.second,
+        milliseconds: now.millisecond,
+        microseconds: now.microsecond,
+      ),
+    );
+
+    return lastMidnight;
+  }
+
   Stream<List<Map<String, dynamic>>> getRanking() {
     return firestore
         .collection("clicks")
+        .where(
+          'date',
+          isGreaterThanOrEqualTo: _getDayDateTime(),
+        )
+        .orderBy(
+          'date',
+          descending: true,
+        )
         .orderBy(
           'clicks',
           descending: true,

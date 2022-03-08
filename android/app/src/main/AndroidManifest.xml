@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.com_nico_develop_click_combat">
+    package="com.nico_develop.click_combat">
    <application
         android:label="com_nico_develop_click_combat"
         android:name="${applicationName}"

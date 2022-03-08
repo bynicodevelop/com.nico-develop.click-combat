@@ -1,6 +1,5 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-const { firestore } = require("firebase-admin");
 
 admin.initializeApp();
 
@@ -45,7 +44,7 @@ exports.onUserClicked = functions.firestore
         .firestore()
         .collection("clicks")
         .add({
-          clicks: afterClick,
+          clicks: afterClick - beforeClick,
           userRef: admin.firestore().doc(`users/${userId}`),
           date: admin.firestore.Timestamp.fromDate(d),
         });

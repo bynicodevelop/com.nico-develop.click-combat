@@ -44,9 +44,19 @@ class _ClickCombatScreenState extends State<ClickCombatScreen> {
           milliseconds: 700,
         ), (Timer timer) async {
       if (_countdown > 0) {
+        if (!mounted) return;
+
         setState(() => _countdown--);
+
+        if (_countdown == 0) {
+          setState(() {
+            _isPlaying = true;
+          });
+        }
       } else {
         timer.cancel();
+
+        if (!mounted) return;
 
         setState(() {
           _isPlaying = true;
@@ -93,6 +103,15 @@ class _ClickCombatScreenState extends State<ClickCombatScreen> {
     if (!widget.userModel.isEmpty) {
       context.read<TotalClickBloc>().add(OnInitializeTotalClickEvent());
     }
+
+    _startCountdown();
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+
+    super.dispose();
   }
 
   @override
@@ -171,14 +190,6 @@ class _ClickCombatScreenState extends State<ClickCombatScreen> {
                                       ),
                                 ),
                               ),
-                            if (!_countdownStarted && !_isPlaying)
-                              IconButton(
-                                onPressed: () => _startCountdown(),
-                                icon: const Icon(
-                                  Icons.play_circle_outline_rounded,
-                                ),
-                                iconSize: 120.0,
-                              )
                           ],
                         ),
                       ),
